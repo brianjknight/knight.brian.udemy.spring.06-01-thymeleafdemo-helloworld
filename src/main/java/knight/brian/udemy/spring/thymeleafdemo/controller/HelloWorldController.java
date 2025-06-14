@@ -1,5 +1,6 @@
 package knight.brian.udemy.spring.thymeleafdemo.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,26 @@ public class HelloWorldController {
     public String processForm(Model model) {
 
         model.addAttribute("theDate", LocalDateTime.now());
+
+        return "helloworld";
+    }
+
+    // processing HTML form manipulating data for the Model
+    @RequestMapping("/processFormVersionTwo")
+    public String letsShout(HttpServletRequest request, Model model) {
+
+        // read the request parameter from the form
+        String theName =  request.getParameter("studentName");
+
+        // convert the incoming data
+        theName = theName.toUpperCase();
+
+        // create a message
+        String result = "Yo! " + theName;
+
+        // add data to the model
+        model.addAttribute("theDate", LocalDateTime.now());
+        model.addAttribute("message", result);
 
         return "helloworld";
     }
